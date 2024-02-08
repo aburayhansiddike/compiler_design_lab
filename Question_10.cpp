@@ -2,12 +2,12 @@
 using namespace std;
 
 
-string space = "\t\t\t\t";
 int main(){
+    freopen("/home/rayhan/Documents/cp/input.txt", "r", stdin);
     int n;
     cout << "Enter the number of production rules : ";
     cin >> n;
-    cin.ignore();
+    cout << n << '\n';
     string grammerLeft[n], grammerRight[n];
     for(int i = 0; i < n; i += 1){
         cout << "Enter the production rule " << i + 1 << " :  ";
@@ -42,7 +42,9 @@ int main(){
     string str;
     getline(cin >> ws, str);
     str += "$";
-    cout << "Stack" << space << "String" << space << "Comment\n";
+
+    int gap = 20;
+    cout << setw(gap) << left << "Stack" << setw(gap) << left << "String" << setw(10) << left << "Comment" << '\n';
     cout << "********************************************************************************\n";
 
     string reduceString = "";
@@ -50,7 +52,7 @@ int main(){
         cout << "$";
         reduceString += str[0];
         str = str.substr(1);
-        cout << reduceString << space << str << space << "shift" << '\n';
+        cout << setw(gap) << left << reduceString <<  setw(gap) << left << str << setw(gap) << left << "shift" << '\n';
 
 
         while(true){
@@ -58,7 +60,7 @@ int main(){
             for(int i = 0; i < (int)reduceString.size(); i += 1){
                 string tempSubstr = reduceString.substr(i);
                 auto it = grammerMap.find(tempSubstr); 
-                if(it != grammerMap.end() and it -> second.size() > 0){
+                if(it != grammerMap.end()){
                     // string leftString = reduceString.substr(0, i);
                     flg = true;
                 }
@@ -66,7 +68,7 @@ int main(){
                 if(flg){
                     string comment = "reduced " + tempSubstr + " -> " + grammerMap[tempSubstr];
                     reduceString = reduceString.substr(0, i) + grammerMap[tempSubstr];
-                    cout << "$" << reduceString << space << str << space << comment << '\n';
+                    cout << "$" << setw(gap) << left << reduceString << setw(gap) << left <<  str << setw(gap) << left << comment << '\n';
                     break;
                 }
             }

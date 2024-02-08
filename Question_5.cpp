@@ -34,6 +34,10 @@ bool isDoubleNumber(string str){
         return false;
     }
 
+    if(beforePoint.size() == 0){
+        return false;
+    }
+    
     if(afterPoint.size() >= 3){
         if(beforePoint.size() == 1){
             return true;
@@ -57,7 +61,7 @@ bool isFloatNumber(string str){
             break;
         }
     }
-    
+
     if(pointIdx <= 0 or str.back() == '.'){
         return false;
     }
@@ -65,10 +69,15 @@ bool isFloatNumber(string str){
     beforePoint = str.substr(0, pointIdx);
     afterPoint = str.substr(pointIdx + 1);
 
+
     if(!isDigits(beforePoint) or !isDigits(afterPoint)){
         return false;
     }
     
+    if(beforePoint.size() == 0){
+        return false;
+    }
+
     if(afterPoint.size() == 2){
         if(beforePoint.size() == 1){
             return true;
@@ -84,14 +93,16 @@ bool isFloatNumber(string str){
 bool isFloatVarible(string str){
     bool flg = false;
     char c = str[0];
-    if((tolower(c) >= 'a' and tolower(c) <= 'h') or (tolower(c) >= 'o' and tolower(c) <= 'z') or (c >= '0' and c <= '9')){
+    if((tolower(c) >= 'a' and tolower(c) <= 'h') or (tolower(c) >= 'o' and tolower(c) <= 'z')){
         flg = true;
     }
 
     for(int i = 1; i < (int)str.size(); i += 1){
-        if(!isalpha(str[i])){
-            flg = false;
-            break;
+        if((tolower(str[i]) >= 'a' and tolower(str[i]) <= 'z') or (str[i] >= '0' and str[i] <= '9')){
+            
+            continue;
+        }else{
+            return false;
         }
     }
 
